@@ -1,0 +1,31 @@
+CREATE TABLE `movimientos` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `movi` int(11) DEFAULT NULL,
+ `fecha_movimiento` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `tipo` text COLLATE utf8_spanish_ci NOT NULL,
+ `derivado_a` text COLLATE utf8_spanish_ci NOT NULL,
+ `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
+ `plazo` date NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `movimientos` (`movi`),
+ FOREIGN KEY(movi) REFERENCES accionesdemejora(id)
+) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_spanish_ci
+
+
+CREATE TABLE `accionesdemejora` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `fecha_alta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `titulo` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
+ `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
+ `objetivo` text COLLATE utf8_spanish_ci NOT NULL,
+ `observacion` text COLLATE utf8_spanish_ci NOT NULL,
+ `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+ `origen` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+ `proceso` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+ `area` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+ `estado` text COLLATE utf8_spanish_ci NOT NULL,
+ `subestado` text COLLATE utf8_spanish_ci NOT NULL,
+ `fecha_validacion` date NOT NULL,
+ `vencida` varchar(2) COLLATE utf8_spanish_ci NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 CHARSET=utf8 COLLATE=utf8_spanish_ci

@@ -1,0 +1,72 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+
+	<div class="container">
+	
+		<h2>SISTEMA DE ACCIONES DE MEJORA</h2>
+		
+<?php		
+include = ("conexion1.php");
+
+ $result = mysql_query("SELECT id, titulo, tipo, origen, proceso, area, estado, subestado, vencida FROM accionesdemejora order by desc");
+      ?>
+	  
+      <table border="2" style= "background-color: #84ed86; color: #761a9b; margin: 0 auto;" >
+      <thead>
+        <tr>
+			<th>ACCION</th>
+			<th>TITULO</th>
+			<th>TIPO</th>
+			<th>ORIGEN</th>
+			<th>PROCESO</th>
+			<th>AREA</th>
+			<th>ESTADO</th>
+			<th>SUBESTADO</th>
+			<th>VENCIDA</th>	
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          while( $row = mysql_fetch_assoc( $result ) ){
+            echo
+            "<tr>
+              <td>{$row\['id'\]}</td>
+              <td>{$row\['titulo'\]}</td>
+              <td>{$row\['tipo'\]}</td>
+              <td>{$row\['origen'\]}</td>
+              <td>{$row\['proceso'\]}</td>
+              <td>{$row\['area'\]}</td> 
+			  <td>{$row\['estado'\]}</td> 
+			  <td>{$row\['subestado'\]}</td> 			  
+			  <td>{$row\['vencida'\]}</td> 			  
+            </tr>\n";
+          }
+        ?>
+      </tbody>
+    </table>
+
+    </body>
+    </html>		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

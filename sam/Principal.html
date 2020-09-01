@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<h2>SISTEMA DE ACCIONES DE MEJORA</h2>
+
+		
+		
+<table class="table table-striped">
+  	
+		<thead>
+		<tr>
+			<th>ACCION</th>
+			<th>TITULO</th>
+			<th>TIPO</th>
+			<th>ORIGEN</th>
+			<th>PROCESO</th>
+			<th>AREA</th>
+			<th>ESTADO</th>
+			<th>SUBESTADO</th>
+			<th>VENCIDA</th>			
+		</tr>
+		</thead>
+		
+<?php
+
+// Conectando, seleccionando la base de datos
+
+$link = mysql_connect('localhost', 'root', 'Prome2017')
+
+    or die('No se pudo conectar: ' . mysql_error());
+
+
+mysql_select_db('hotel') or die('No se pudo seleccionar la base de datos');
+
+
+
+// Realizar una consulta MySQL
+$query = 'SELECT id, titulo, tipo, origen, proceso, area, estado, subestado, vencida FROM accionesdemejora';
+
+$result = mysql_query($query, $rows) or die('Consulta fallida: ' . mysql_error());
+
+
+
+//echo 'ver';
+ while ($row = mysql_fetch_array($result)){
+	<td><?php$row['id'] ?></td>
+    <td><?php $row['titulo'] ?></td>
+    <td><?php $row['tipo'] ?></td>
+    <td><?php $row['origen'] ?></td>
+    <td><?php $row['proceso'] ?></td>
+    <td><?php $row['area'] ?></td>
+	<td><?php $row['estado'] ?></td>
+    <td><?php $row['subestado'] ?></td>
+	<td><?php $row['vencida'] ?></td>
+	
+	echo 'ver';
+
+	
+</table>		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+</body> 
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+ 
+<?php
+$enlace = mysql_connect('localhost', 'root', 'Prome2017');
+if (!$enlace) {
+    die('No se pudo conectar: ' . mysql_error());
+}
+if (!mysql_select_db('sam')) {
+    die('No se pudo seleccionar la base de datos: ' . mysql_error());
+}
+$resultado = mysql_query('SELECT id FROM accionesdemejora ORDER BY id DESC LIMIT 1');
+if (!$resultado) {
+    die('No se pudo consultar:' . mysql_error());
+}
+
+
+echo "<h1> Se ha cargado con exito la acción " ; 
+
+echo mysql_result($resultado,0);
+
+mysql_close($enlace);
+	
+
+?>
+  
+   <a href="index.html" onclick="return myFunction();">Volver a formulario</a>
+
+
+   
+
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<? session_start(); 
+if (!isset($_SESSION["cuenta_paginas"])){ 
+   	$_SESSION["cuenta_paginas"] = 1; 
+}else{ 
+   	$_SESSION["cuenta_paginas"]++; 
+} 
+?> 
+<?php
+$db_host = 'localhost'; // Servidor
+$db_user = 'root'; // usuario
+$db_pass = 'Micr0E123'; // Password
+$db_name = 'inventario'; // Database
+
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+if (!$conn) {
+	die ('Failed to connect to MySQL: ' . mysqli_connect_error());	
+}
+//$sql = "SELECT  sec1.*, sec2.FILIAL, sec1.Nombre FROM celulares AS sec1 JOIN computadoras AS sec2 ON SUBSTRING(sec1.Sector,1,4) = sec2.FILIAL";
+$sql = 'SELECT  acc1.*, mov2.Usuario, mov2.NombreEquipo, mov2.FILIAL FROM celulares AS acc1 JOIN computadoras AS mov2 ON acc1.Sector = mov2.FILIAL';
+//$sql = 'SELECT * FROM celulares';		
+$query = mysqli_query($conn, $sql);
+
+if (!$query) {
+	die ('SQL Error: ' . mysqli_error($conn));
+}	
+?>
+
+<html lang="en">
+<head>
+  <title>Inventario</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>  
+ <script src="js/jquery_1_11_0_min.js"></script>
+ <script language="javascript" type="text/javascript">  
+  function tablas(){
+var yea=document.getElementById("chupala").rows.length;
+alert(yea);
+} 
+</script>  
+ <style type="text/css">
+
+
+.table {
+   display: table;
+   border-collapse: collapse;
+}
+ 
+.table .table-row {
+   display: table-row;
+}
+ 
+.table .table-cell {
+   display: table-cell;
+   text-align: left;
+   vertical-align: top;
+   border: 1px solid black;
+}
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 40px;
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+		<table class = "table table-bordered table-striped" id="chupala">
+  	
+		<thead>
+		
+		<hr style="color: #0056b2;" />
+		             <span>
+						<img src="img/logo_pm.png" alt="">
+					 </span>
+		<center><img src="img/inv.png" alt=""></center>
+        <br>
+		<hr style="color: #0056b2;" />	
+		<input class = "form-control" id = "demo" type = "text" placeholder = "Buscaaaa..">
+		<br>
+		<tr>
+			<!--<th>id</th>
+			<!--<th>DNI</th>-->
+			<!--<th>Legajo</th>-->
+			<th>Nombre</th>
+		<!--<th>Celular Ultimo</th>
+			<th>Numero Movistar</th>-->
+			<th>Computadora</th>
+			<th>Zona</th>
+		<!--<th>Perfil</th>-->
+			<th>Telefonos</th>
+			
+			<th>Equipos por Filial</th>
+		</tr>
+		</thead>
+
+				
+		<tbody id = "test">
+		
+		<?php
+
+		while ($row = mysqli_fetch_array($query))
+		{
+			echo '<tr>
+			        <div style="table-layout: fixed; max-height: 100px; max-width: 100px; width: 100px; overflow: auto;">
+				  <!--<td><a href="Modificar_datos.php?id=' . $row['id'] . '">' . $row['id'] . '</a></td>
+				    <td><a href="ver_dato.php?Usuario=' . $row['Usuario'] . '">' . $row['Usuario'] . '</a></td>-->
+				    <td>'.$row['Usuario'].'</td>  
+					<!--<td>'.$row['Nombre'].'</td>-->
+					<!--<td>'.$row['Celular_Ultimo'].'</td>
+					<td>'.$row['Numero_Movistar'].'</td>-->
+					<td><a href="ver_dato.php?NombreEquipo=' . $row['NombreEquipo'] . '">' . $row['NombreEquipo'] . '</a></td>
+			        <td>'.$row['Zona'].'</td>
+				<!--<td>'.$row['Perfil'].'</td>-->
+					<td><a href="sector.php?telefonosxsucursal="<button>Telefonos Filiales</button></a></td>
+					<!--<td>'.$row['Gerencia'].'</td>-->
+					<td><a href="filial.php?FILIAL=' . $row['FILIAL'] . '">' . $row['FILIAL'] . '</a></td>
+					<!--<td><a href="ver_contacto.php?id='.$row['id'].'"><button class="btn btn-primary btn-sm" onclick="myFunction()">Cargar dato</button></a></td>
+					<td><a href="Modificar_datos.php?id='.$row['id'].'"><button class="btn btn-primary btn-sm" onclick="myFunction()">Modificar</button></a></td>-->	
+</div>					
+				</tr>';
+		}?>
+		</tbody>
+   
+     </table>  
+		 <script>
+         $(document).ready(function(){
+            $("#demo").on("keyup", function() {
+               var value = $(this).val().toLowerCase();
+               $("#test tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+               });
+            });
+         });
+  </script> 
+</body>
+</html>
+
+
